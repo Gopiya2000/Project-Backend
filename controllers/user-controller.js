@@ -18,62 +18,62 @@ const signup = async (req, res, next) => {
 
     let existingUser;
     try {
-        existingUser = await User.findOne({Username});
+        existingUser = await User.findOne({ Username });
     } catch (err) {
         console.log(err);
     }
-    if(existingUser){
-        return res.status(400).json({message: "User already exists.Login instead."})
+    if (existingUser) {
+        return res.status(400).json({ message: "User already exists.Login instead." })
     }
-    if(Password == Confirm){
-    const hashedPassword = bcrypt.hashSync(Password,12);
-    const hashedConfirm = bcrypt.hashSync(Confirm,12);
-    
-    const user = new User({
-        Name,
-        Email,
-        Username,
-        Mobile,
-        Date,
-        Password:hashedPassword,
-        Confirm:hashedConfirm
-    });
-    
-    try{
-        await user.save();
-    }catch(err){
-       return console.log(err);
+    if (Password == Confirm) {
+        const hashedPassword = bcrypt.hashSync(Password, 12);
+        const hashedConfirm = bcrypt.hashSync(Confirm, 12);
+
+        const user = new User({
+            Name,
+            Email,
+            Username,
+            Mobile,
+            Date,
+            Password: hashedPassword,
+            Confirm: hashedConfirm
+        });
+
+        try {
+            await user.save();
+        } catch (err) {
+            return console.log(err);
+        }
+        return res.status(201).json({ user })
     }
-    return res.status(201).json({user})
-}
-else{
-    return console.log("Both Password and confirm password should be same.")
-}
+    else {
+        return console.log("Both Password and confirm password should be same.")
+    }
 };
 
 
-const login = async(req,res,next) => {
-    const{Username,Password} =req.body;
+const login = async (req, res, next) => {
+    const { Username, Password } = req.body;
     let existingUser;
     try {
-        existingUser = await User.findOne({Username});
+        existingUser = await User.findOne({ Username });
     } catch (err) {
         console.log(err);
     }
-    if(!existingUser){
-        return res.status(404).json({message: "Couldn't find user by this username"});
+    if (!existingUser) {
+        return res.status(404).json({ message: "Couldn't find user by this username" });
     }
-    const isPasswordCorrect = bcrypt.compareSync(Password,existingUser.Password);
-    if(!isPasswordCorrect){
-        return res.status(400).json({message:"Incorrect Password"})
+    const isPasswordCorrect = bcrypt.compareSync(Password, existingUser.Password);
+    if (!isPasswordCorrect) {
+        return res.status(400).json({ message: "Incorrect Password" })
     }
-    return res.status(200).json({message:"Login Successfull"})
-    
+    return res.status(200).json({ message: "Login Successfull" })
+
 }
 module.exports = {
-    getUser : getAllUser,
-    signUp : signup,
-    login : login
+    getUser: getAllUser,
+    signUp: signup,
+    login: login
 }
 //module.exports = getAllUser
 // module.exports = signup;
