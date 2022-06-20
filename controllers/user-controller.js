@@ -25,17 +25,20 @@ const signup = async (req, res, next) => {
     if(existingUser){
         return res.status(400).json({message: "User already exists.Login instead."})
     }
-    const hashedPassword = bcrypt.hashSync(Password);
+    if(Password == Confirm){
+    const hashedPassword = bcrypt.hashSync(Password,12);
+    const hashedConfirm = bcrypt.hashSync(Confirm,12);
+    
     const user = new User({
         Name,
         Email,
         Username,
         Mobile,
         Date,
-        Password,
-        Confirm 
+        Password:hashedPassword,
+        Confirm:hashedConfirm
     });
-
+    
     try{
         await user.save();
     }catch(err){
@@ -43,6 +46,11 @@ const signup = async (req, res, next) => {
     }
     return res.status(201).json({user})
 }
+else{
+    return console.log("Both Password and confirm password should be same.")
+}
+};
+
 
 const login = async(req,res,next) => {
     const{Username,Password} =req.body;
@@ -60,7 +68,7 @@ const login = async(req,res,next) => {
         return res.status(400).json({message:"Incorrect Password"})
     }
     return res.status(200).json({message:"Login Successfull"})
-
+    
 }
 module.exports = {
     getUser : getAllUser,

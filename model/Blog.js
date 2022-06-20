@@ -1,4 +1,4 @@
-const mongodb = require('mongoose');
+var mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -8,35 +8,24 @@ const blogSchema = new Schema({
         required: true
     },
     Content: {
-        type: TextArea,
-        required: true
-    },
-   Image: [{
-    fileName: {
         type: String,
         required: true
-      },
-      file: {
-        data: Buffer,
-        contentType: image/png || image/jpeg
-      },
-      uploadTime: {
-        type: Date,
-        default: Date.now
-      }
-    }
-],
-      Tag: {
-        name:String,
-        id:String   
     },
-    User:{
+  Image: { 
+      type: String,
+       required: true 
+      },
+      Tag: [{Username:{
         type: String,
         required: true
-    }
-}
-);
-
+    }}]
+        ,
+  creator: [{
+     type: mongoose.Schema.Types.ObjectId, 
+     ref: "User", 
+     required: true 
+    }]
+});
 module.exports = mongoose.model("Blog",blogSchema)
     
 

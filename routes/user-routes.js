@@ -1,5 +1,4 @@
-var express = require('express');
-// const { getAllUser} = require('../controllers/user-controller');
+var express = require('express');;
 const {getUser,signUp,login} = require('../controllers/user-controller')
 //const User = require('../model/User');
 
