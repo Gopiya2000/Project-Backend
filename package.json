@@ -1,11 +1,15 @@
 {
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "inquirer": "^8.2.4",
     "mongodb": "^4.7.0",
+    "mongoose": "^6.4.0",
     "node": "^17.7.2",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "router": "^1.3.7"
   },
   "name": "project-backend",
   "version": "1.0.0",
@@ -15,5 +19,5 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "Blog Application"
 }

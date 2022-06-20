@@ -1,16 +1,13 @@
-var express = require('express')
-var app = express()
-var {connectToDb,getDbConnection} = require('./db')
-var {ObjectId} = require('mongodb')
-let dbs
-app.use(express.json())
-connectToDb((err)=>{
-    console.log("db code from express")
-    if(!err)
-    {
-        app.listen(7090,()=>{
-            console.log("Server running on PORT:7090")
-        })
-        dbs = getDbConnection()
-    }
-})
+var express = require('express');
+var mongoose = require('mongoose');
+const router = require('./routes/user-routes');
+const app = express();
+app.use(express.json());
+app.use("/api/user",router)
+
+mongoose.connect('mongodb://0.0.0.0:27017/Blog')
+.then(() => app.listen(5000))
+.then(() => 
+console.log("Connected to the Database and listening to localhost 5000")
+)
+.catch((err) => console.log(err));
