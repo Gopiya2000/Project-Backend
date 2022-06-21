@@ -49,9 +49,6 @@ const addBlog = async (req, res, next) => {
     });
     try {
         // await blog.save();
-        
-        await blog.save();
-        //existingUser.blogs.push(blog);
 
         // const session = await mongoose.startSession();
         // session.startTransaction();
