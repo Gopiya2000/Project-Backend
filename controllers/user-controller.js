@@ -79,6 +79,3 @@ module.exports = {
     signUp: signup,
     login: login
 }
-//module.exports = getAllUser
-// module.exports = signup;
-// module.exports = login;
