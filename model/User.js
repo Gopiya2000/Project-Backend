@@ -3,41 +3,54 @@ const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    Name: {
+    name: {
         type: String,
         required: true,
     },
-    Email: {
+    email: {
         type: String,
         trim: true,
         lowercase: true,
         unique: true,
         required: true,
     },
-    Username: {
+    username: {
         type: String,
         required: true,
         unique: true
     },
-    Mobile: {
+    mobile: {
         type: Number,
         required: true,
         unique: true,
     },
-    Date: {
+    date: {
         type: Date,
         trim: true
     },
-    Password: {
+    password: {
         type: String,
         required: true,
         trim: true,
         unique: true
     },
-    Confirm: {
+    confirm: {
         type: String,
         required: true
-    }
+    },
+    picture: {
+        type: String,
+        required: true
+      },
+      bio: {
+        type: String,
+        required:true
+      },
+    blogs:[{
+        type:mongoose.Types.ObjectId,
+        ref:"Blog",
+        required:true
+}]
 });
 
 // //Secure Password

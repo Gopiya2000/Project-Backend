@@ -1,32 +1,33 @@
 var mongoose = require('mongoose');
-
+//var User = require('../model/Users')
 const Schema = mongoose.Schema;
 
 const blogSchema = new Schema({
-  Title: {
+  title: {
     type: String,
     required: true
   },
-  Content: {
+  content: {
     type: String,
     required: true
   },
-  Image: {
+  image: {
+    // name:String,
+    // image:{
+    //   data:Buffer,
+    //   contentType:String
+    // }
     type: String,
     required: true
   },
-  Tag: [
-    {
-      Username: {
-        type: String,
-        required: true
-      }
-    }]
-  ,
-  creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  tag: [{
+    type: String,
     required: true
+  }],
+  user: {
+    type:mongoose.Types.ObjectId,
+    ref:"User",
+    required:true
   }
 });
 module.exports = mongoose.model("Blog", blogSchema)

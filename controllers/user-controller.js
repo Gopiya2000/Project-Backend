@@ -14,29 +14,30 @@ const getAllUser = async (req, res, next) => {
 };
 
 const signup = async (req, res, next) => {
-    const { Name, Email, Username, Mobile, Date, Password, Confirm } = req.body;
+    const { name, email, username, mobile, date, password, confirm ,blogs} = req.body;
 
     let existingUser;
     try {
-        existingUser = await User.findOne({ Username });
+        existingUser = await User.findOne({ username });
     } catch (err) {
         console.log(err);
     }
     if (existingUser) {
         return res.status(400).json({ message: "User already exists.Login instead." })
     }
-    if (Password == Confirm) {
-        const hashedPassword = bcrypt.hashSync(Password, 12);
-        const hashedConfirm = bcrypt.hashSync(Confirm, 12);
+    if (password == confirm) {
+        const hashedPassword = bcrypt.hashSync(password, 12);
+        const hashedConfirm = bcrypt.hashSync(confirm, 12);
 
         const user = new User({
-            Name,
-            Email,
-            Username,
-            Mobile,
-            Date,
-            Password: hashedPassword,
-            Confirm: hashedConfirm
+            name,
+            email,
+            username,
+            mobile,
+            date,
+            password: hashedPassword,
+            confirm: hashedConfirm,
+            blogs:[]
         });
 
         try {
@@ -53,17 +54,17 @@ const signup = async (req, res, next) => {
 
 
 const login = async (req, res, next) => {
-    const { Username, Password } = req.body;
+    const { username, password } = req.body;
     let existingUser;
     try {
-        existingUser = await User.findOne({ Username });
+        existingUser = await User.findOne({ username });
     } catch (err) {
         console.log(err);
     }
     if (!existingUser) {
         return res.status(404).json({ message: "Couldn't find user by this username" });
     }
-    const isPasswordCorrect = bcrypt.compareSync(Password, existingUser.Password);
+    const isPasswordCorrect = bcrypt.compareSync(password, existingUser.password);
     if (!isPasswordCorrect) {
         return res.status(400).json({ message: "Incorrect Password" })
     }
