@@ -1,11 +1,13 @@
 var express = require('express');
 var mongoose = require('mongoose');
 const router = require('./routes/user-routes');
-const blogRouter = require('./routes/blog-routes')
+const blogRouter = require('./routes/blog-routes');
+const profileRouter = require('./routes/profile-routes');
 const app = express();
 app.use(express.json());
 app.use("/api/user", router);
 app.use("/api/blog", blogRouter);
+app.use("/api/login/profile", profileRouter);
 
 mongoose.connect('mongodb://0.0.0.0:27017/Blog')
     .then(() => app.listen(5000))
